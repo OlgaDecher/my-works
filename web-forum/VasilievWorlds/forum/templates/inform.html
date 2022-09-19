@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Сообщения
+{% endblock title %}
+
+
+{% block content_block %}
+<div class="theme">
+
+    {% if inform %}
+        <p class="upper"> {{ theme_title }} </p>
+        {% if perms.forum.add_information %}
+            <a href="{% url 'add_informations' %}" class="blocL" style="float: none;"><p>Добавить сообщение</p></a>
+        {% endif %}
+        {% for info in inform %}
+            <div class="massage">
+                <p> {{ info.content }} </p>
+                {% if info.images %}
+                    <img width=30% src="{{ info.images.url }}">
+                {% endif %}
+                <hr>
+                 <div style="font-size: 10px;">Сообщение оставил: </div><div  style="font-size: 25px;">{{ info.author }} </div>
+                <p style="font-size: 10px;"> {{ info.create }} </p>
+            </div>
+        {% endfor %}
+    {% else %}
+            <p class="upper">В выбранной теме сообщений нет</p>
+    {% endif %}    
+
+        {% if perms.forum.add_information %}
+            <a href="{% url 'add_informations' %}" class="blocL" style="float: none;"><p>Добавить сообщение</p></a>
+        {% endif %}
+
+
+</div> 
+{% endblock content_block %}    
